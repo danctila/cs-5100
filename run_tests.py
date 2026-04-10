@@ -85,50 +85,14 @@ def test_3x3_open():
 
 def test_5x5_obstacle():
     """
-    5x5 grid with a vertical wall forcing a detour.
+    5x5 grid with one obstacle at (0,2) blocking the direct row.
 
-      . . # . .
-      . . # . .
-      . . # . .
-      . . . . .
+      S * # * G
+      . * * * .
       . . . . .
 
-    Start=(0,0), Goal=(0,4). Straight path is blocked; must go around.
-    Optimal cost = 8 (down 3, right 3, up 3 -- or symmetric variants).
-
-    Actually let me compute: from (0,0) to (0,4) with col-2 blocked for rows 0-2.
-    One optimal path: (0,0)->(1,0)->(2,0)->(3,0)->(3,1)->(3,2)->(3,3)->(3,4)->(2,4)->(1,4)->(0,4) = 10 steps
-    
-    Hmm, let me recalculate. Blocking col=2 rows 0-2 means:
-    row 3 has col 2 open, so we go around via row 3.
-    Path: right to col 1, down to row 3, right to col 4, up to row 0 = 1+3+3+3 = 10? No.
-    (0,0) -> right -> (0,1) -> down -> (1,1) -> down -> (2,1) -> down -> (3,1) -> right -> (3,2) -> right -> (3,3) -> right -> (3,4) -> up -> (2,4) -> up -> (1,4) -> up -> (0,4)
-    = 17 steps? That seems too many.
-    
-    Let me reconsider. Simpler: just go down 3, then across, then up, but only in the cols that are open.
-    Actually from (0,0) to (0,4):
-    Direct path would be 4 steps going right, but col 2 is blocked for rows 0-2.
-    
-    Going around: (0,0)->(1,0)->(2,0)->(3,0)->(3,1)->(3,2)->(3,3)->(3,4)->(2,4)->(1,4)->(0,4) = 10 steps.
-    
-    But can we go through rows 0-2 with cols != 2? Like:
-    (0,0)->(0,1) then we need col 2 which is blocked...
-    Or (0,0)->(1,0)->(1,1) then (1,2) is blocked...
-    
-    So minimum path goes through row 3 where col 2 is open: cost = 10.
-    
-    Actually let me use a simpler obstacle setup for the test to make it easy to verify.
-    Let me use a straight wall: col 2 blocked for ALL rows, except... or a simpler scenario.
-    
-    Let me use a 5x5 grid with just one obstacle at (0,2):
-    Start=(0,0), Goal=(0,4). Path must detour around (0,2).
-    One path: (0,0)->(0,1)->(1,1)->(1,2)->(1,3)->(0,3)->(0,4) = 6 steps.
-    Manhattan direct = 4, but one obstacle forces a detour.
-    
-    With obstacle at (0,2), detour of 2 extra steps = cost 6.
-    Path: right, down, right, right, up, right = 6.
-    
-    This is easy to verify!
+    Start=(0,0), Goal=(0,4). Direct path (4 steps right) is blocked.
+    Optimal detour: right, down, right, right, up, right = cost 6.
     """
     # Block (0,2) only -- forces detour on the direct row
     grid = make_grid(5, 5, obstacles={(0, 2)})
@@ -286,7 +250,7 @@ def test_path_is_valid(n_random: int = 10, seed: int = 42):
 
 def main():
     print("=" * 60)
-    print("Capstone Week 2 -- Search sanity tests")
+    print("Capstone Week 2 tests")
     print("=" * 60)
     print()
 
