@@ -1,12 +1,12 @@
 # Capstone Code
 
-FAI CS5100 Spring 2026 — A\* Reproduction Project
+FAI CS5100 Spring 2026 | A\* Reproduction Project
 
 ## Files
 
 | File             | What it contains                                                              |
 | ---------------- | ----------------------------------------------------------------------------- |
-| `search.py`      | `best_first_search`, `ucs`, `astar`, `greedy` — all four algorithms           |
+| `search.py`      | `best_first_search`, `ucs`, `astar`, `greedy` (all four algorithms)           |
 | `grid.py`        | `GridProblem`, `make_grid`, `print_grid`, `manhattan` heuristic               |
 | `puzzle.py`      | `PuzzleProblem`, `h1` (misplaced tiles), `h2` (Manhattan), instance generator |
 | `run_tests.py`   | 13 sanity tests covering correctness, optimality, and path validity           |
@@ -29,14 +29,14 @@ When `h(n) = 0`, A\* reduces to UCS exactly.
 
 ## Domains
 
-**Grid pathfinding** — 4-neighbor unit-cost grids with random obstacles.
+**Grid pathfinding:** 4-neighbor unit-cost grids with random obstacles.
 Heuristic: Manhattan distance (admissible and consistent).
 
-**8-puzzle** — classic 3×3 sliding-tile problem.
+**8-puzzle:** classic 3x3 sliding-tile problem.
 Two heuristics:
 
-- `h1` — misplaced tiles (admissible, weaker)
-- `h2` — Manhattan distance of each tile from its goal position (admissible, dominates h1)
+- `h1`: misplaced tiles (admissible, weaker)
+- `h2`: Manhattan distance of each tile from its goal position (admissible, dominates h1)
 
 ## Run the sanity tests
 
@@ -61,10 +61,10 @@ python experiments.py
 
 Runs all four algorithms on both domains and prints four summary tables:
 
-1. Grid 15×15 — 20 instances, seed 42
-2. Grid 30×30 — 20 instances, seed 42
-3. 8-puzzle depth ~8 — 20 instances, seed 42
-4. 8-puzzle depth ~14 — 20 instances, seed 42 (UCS omitted; intractable at this depth)
+1. Grid 15x15, 20 instances, seed 42
+2. Grid 30x30, 20 instances, seed 42
+3. 8-puzzle depth ~8, 20 instances, seed 42
+4. 8-puzzle depth ~14, 20 instances, seed 42 (UCS omitted, intractable at this depth)
 
 Each table reports average path cost, average node expansions, and suboptimal count.
 Dominance checks (A\* with stronger heuristic expands ≤ nodes than A\* with weaker heuristic)
