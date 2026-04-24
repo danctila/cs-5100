@@ -4,6 +4,11 @@ Capstone Experiments
 Algorithms: UCS  |  Greedy(Manhattan)  |  A*(Manhattan)
 All unit-cost 4-neighbour grids; start=(0,0) goal=(14,14)
 
+Algorithm       Avg Cost        Avg Expansions  Suboptimal      Failed          
+--------------------------------------------------------------------------------
+UCS             28.0            191             0/20            0               
+Greedy          30.3            32              15/20           0               
+A*(Manhattan)   28.0            161             0/20            0               
 
   Dominance:
   A*(Manhattan) <= UCS: PASS (20 instances)
@@ -11,6 +16,11 @@ All unit-cost 4-neighbour grids; start=(0,0) goal=(14,14)
 --- Grid Pathfinding 30x30 (20 instances, seed=42) ---
 Algorithms: UCS  |  Greedy(Manhattan)  |  A*(Manhattan)
 
+Algorithm       Avg Cost        Avg Expansions  Suboptimal      Failed          
+--------------------------------------------------------------------------------
+UCS             58.0            762             0/20            0               
+Greedy          63.7            68              20/20           0               
+A*(Manhattan)   58.0            590             0/20            0               
 
   Dominance:
   A*(Manhattan) <= UCS: PASS (20 instances)
@@ -19,6 +29,12 @@ Algorithms: UCS  |  Greedy(Manhattan)  |  A*(Manhattan)
 Algorithms: UCS  |  A*(h1=misplaced)  |  A*(h2=Manhattan)  |  Greedy(h2)
 mod3.6 reference (nodes generated): A*(h1)=39, A*(h2)=25
 
+Algorithm       Avg Cost        Avg Expansions  mod3.6 Ref      Suboptimal      
+--------------------------------------------------------------------------------
+UCS             7.8             199.1           —               0/20            
+A*(h1)          7.8             15.4            39              0/20            
+A*(h2)          7.8             10.2            25              0/20            
+Greedy(h2)      7.9             9.2             —               1/20            
 
   Dominance:
   A*(h1) <= UCS: PASS (20 instances)
@@ -29,6 +45,11 @@ Algorithms: A*(h1=misplaced)  |  A*(h2=Manhattan)  |  Greedy(h2)
 UCS omitted: at depth 14, UCS would need ~10,000+ expansions per instance.
 mod3.6 reference (nodes generated): A*(h1)=539, A*(h2)=113
 
+Algorithm       Avg Cost        Avg Expansions  mod3.6 Ref      Suboptimal      
+--------------------------------------------------------------------------------
+A*(h1)          13.4            206.2           539             0/20            
+A*(h2)          13.4            54.6            113             0/20            
+Greedy(h2)      23.6            158.3           —               8/20            
 
   Dominance:
   A*(h2) <= A*(h1): PASS (20 instances)

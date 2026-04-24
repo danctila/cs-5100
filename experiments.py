@@ -52,12 +52,12 @@ def fmt(val: Optional[float], decimals: int = 1) -> str:
     return f"{val:.{decimals}f}"
 
 
-def print_table(rows: List[Dict], col_order: List[str], col_width: int = 16) -> None:
+def format_table(rows: List[Dict], col_order: List[str], col_width: int = 16) -> List[str]:
     header = "".join(c.ljust(col_width) for c in col_order)
-    print(header)
-    print("-" * len(header))
+    lines = [header, "-" * len(header)]
     for row in rows:
-        print("".join(str(row.get(c, "")).ljust(col_width) for c in col_order))
+        lines.append("".join(str(row.get(c, "")).ljust(col_width) for c in col_order))
+    return lines
 
 
 # ---------------------------------------------------------------------------
@@ -278,7 +278,8 @@ def main():
 
     grid_15_results, skipped_15 = run_grid_experiments(15, N_GRID, SEED)
     rows_15 = summarize_grid(grid_15_results, N_GRID, skipped_15, 15)
-    print_table(rows_15, ["Algorithm", "Avg Cost", "Avg Expansions", "Suboptimal", "Failed"])
+    for line in format_table(rows_15, ["Algorithm", "Avg Cost", "Avg Expansions", "Suboptimal", "Failed"]):
+        log(line)
     if skipped_15:
         log(f"\n  (Skipped {skipped_15} unsolvable instances)")
 
@@ -293,7 +294,8 @@ def main():
 
     grid_30_results, skipped_30 = run_grid_experiments(30, N_GRID, SEED)
     rows_30 = summarize_grid(grid_30_results, N_GRID, skipped_30, 30)
-    print_table(rows_30, ["Algorithm", "Avg Cost", "Avg Expansions", "Suboptimal", "Failed"])
+    for line in format_table(rows_30, ["Algorithm", "Avg Cost", "Avg Expansions", "Suboptimal", "Failed"]):
+        log(line)
     if skipped_30:
         log(f"\n  (Skipped {skipped_30} unsolvable instances)")
 
@@ -309,7 +311,8 @@ def main():
 
     puz_8_results = run_puzzle_experiments(8, N_PUZZLE, SEED, skip_ucs=False)
     rows_puz8 = summarize_puzzle(puz_8_results, depth=8)
-    print_table(rows_puz8, ["Algorithm", "Avg Cost", "Avg Expansions", "mod3.6 Ref", "Suboptimal"])
+    for line in format_table(rows_puz8, ["Algorithm", "Avg Cost", "Avg Expansions", "mod3.6 Ref", "Suboptimal"]):
+        log(line)
 
     log(f"\n  Dominance:")
     log("  " + check_dominance(puz_8_results, "UCS",    "A*(h1)"))
@@ -325,7 +328,8 @@ def main():
 
     puz_14_results = run_puzzle_experiments(14, N_PUZZLE, SEED, skip_ucs=True)
     rows_puz14 = summarize_puzzle(puz_14_results, depth=14)
-    print_table(rows_puz14, ["Algorithm", "Avg Cost", "Avg Expansions", "mod3.6 Ref", "Suboptimal"])
+    for line in format_table(rows_puz14, ["Algorithm", "Avg Cost", "Avg Expansions", "mod3.6 Ref", "Suboptimal"]):
+        log(line)
 
     log(f"\n  Dominance:")
     log("  " + check_dominance(puz_14_results, "A*(h1)", "A*(h2)"))
